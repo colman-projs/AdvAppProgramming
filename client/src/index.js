@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import SnackbarProvider from "notistack";
+// import { SnackbarProvider } from "notistack";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -9,14 +9,14 @@ import "./index.scss";
 
 ReactDOM.render(
     <React.StrictMode>
-        <SnackbarProvider
+        {/* <SnackbarProvider
             maxSnack={5}
             autoHideDuration={3000}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             TransitionProps={{ direction: "right" }}
-        >
-            <App />
-        </SnackbarProvider>
+        > */}
+        <App />
+        {/* </SnackbarProvider> */}
     </React.StrictMode>,
     document.getElementById("root")
 );

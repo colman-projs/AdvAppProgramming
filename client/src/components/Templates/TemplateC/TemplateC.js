@@ -1,7 +1,7 @@
 import React from "react";
 import "./TemplateC.scss";
 
-function TemplateC() {
+function TemplateC({ commercial }) {
     return (
         <div id="contentC">
             <h1 id="msg0"></h1>

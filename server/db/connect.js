@@ -1,10 +1,14 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const connectDB = (url) => {
-  return mongoose.connect(url, {
-    useNewUrlParser: true, 
-    dbName: "AdvProg"
-  })
-}
+const connectDB = async (url) => {
+    try {
+        await mongoose.connect(url, {
+            useNewUrlParser: true,
+            dbName: "AdvProg",
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};
 
-module.exports = connectDB
+module.exports = connectDB;

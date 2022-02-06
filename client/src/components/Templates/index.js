@@ -11,8 +11,8 @@ export const TEMPLATE_TYPES = {
 };
 
 export const TemplateComponents = {
-    [TEMPLATE_TYPES.DefaultTemplate]: <DefaultTemplate />,
-    [TEMPLATE_TYPES.TemplateA]: <TemplateA />,
-    [TEMPLATE_TYPES.TemplateA]: <TemplateB />,
-    [TEMPLATE_TYPES.TemplateA]: <TemplateC />,
+    [TEMPLATE_TYPES.DefaultTemplate]: (commercial) => <DefaultTemplate commercial={commercial} />,
+    [TEMPLATE_TYPES.TemplateA]: (commercial) => <TemplateA commercial={commercial} />,
+    [TEMPLATE_TYPES.TemplateB]: (commercial) => <TemplateB commercial={commercial} />,
+    [TEMPLATE_TYPES.TemplateC]: (commercial) => <TemplateC commercial={commercial} />,
 };

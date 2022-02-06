@@ -1,7 +1,7 @@
 import React from "react";
-import "/TemplateB.scss";
+import "./TemplateB.scss";
 
-function TemplateB() {
+function TemplateB({ commercial }) {
     return (
         <div id="contentB">
             <h1 id="msg0"></h1>
