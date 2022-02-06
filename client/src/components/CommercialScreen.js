@@ -88,7 +88,7 @@ function CommercialScreen() {
             );
         };
 
-        getNextCommercial();
+        if (commercials.length) getNextCommercial();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [commercials, ignoreTimeSets]);
