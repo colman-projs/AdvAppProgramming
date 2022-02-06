@@ -15,24 +15,24 @@ function CommercialScreen() {
     const [commercials, setCommercials] = useState([]);
     const [ignoreTimeSets, setIgnoreTimeSets] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [screen, setScreen] = useState(0);
+    const [screen, setScreen] = useState(null);
     const alert = useAlert();
     let query = useQuery();
 
     useEffect(() => {
         const fetchCommercials = async () => {
             setLoading(true);
-            const res = await getCommercials();
+            const res = await getCommercials(screen);
 
-            if (res.commercials) {
+            if (res) {
                 console.log(res);
-                setCommercials(
-                    res.commercials.filter((comm) => comm.screenId === screen),
-                );
+                setCommercials(res);
             } else alert.error('שגיאה בשליפת הפרסומות');
 
             setLoading(false);
         };
+
+        if (!screen) return;
 
         fetchCommercials();
     }, [screen, alert]);

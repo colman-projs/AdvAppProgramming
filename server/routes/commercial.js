@@ -1,17 +1,15 @@
-const express = require("express");
-const commercialController = require("../controllers/commercial");
+const express = require('express');
+const commercialController = require('../controllers/commercial');
 const router = express.Router();
 
-router.get("/", commercialController.getAllcommercials);
+router.get('/', commercialController.getCommercials);
 
-router.get("/name/:commercialName", commercialController.getByName);
+router.get('/:screenId', commercialController.getCommercialsByScreenId);
 
-router.get("/:commercialId", commercialController.getById);
+router.get('/:commercialId', commercialController.getCommercialById);
 
-router.post("/", commercialController.create);
+router.post('/', commercialController.upsertCommercial);
 
-router.put("/", commercialController.update);
-
-router.delete("/", commercialController.remove);
+router.delete('/', commercialController.deleteCommercial);
 
 module.exports = router;
