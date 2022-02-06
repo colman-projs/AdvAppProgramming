@@ -1,14 +1,14 @@
-const Commercial = require('../models/commercial')
+const commercials = require('../models/commercial')
 const asyncWrapper = require('../middleware/async')
 
 const create = (req, res) => {
-    const Commercial = new Commercial( {
+    const commercials = new Commercial( {
         name: req.body.name,
         length: parseInt(req.body.length),
         rating: parseFloat(req.body.rating)
     })
 
-    Commercial.save().then(() =>{
+    commercials.save().then(() =>{
         res.redirect('/commercial');    
     }).catch(error => {
         res.send('failed');
@@ -16,16 +16,20 @@ const create = (req, res) => {
 }
 
 const get = (req, res) => {
-    Commercial.find().then(results => {
+    commercials.find().then(results => {
         console.log(results);
         res.json(results);
     });
 }
 
 const getAllcommercials = asyncWrapper(async (req, res) => {
-    const commercials = await Commercial.find({})
-    console.log(commercials);
-    res.status(200).json({ commercials })
+    await commercials.find().then((commercials)=>{
+        console.log(commercials);
+        res.status(200).json({ commercials })
+    }).catch(err=>{
+        console.log(err)
+    })
+ 
   })
 
 const getByName = (req, res) => {
