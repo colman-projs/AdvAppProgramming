@@ -5,6 +5,8 @@ const commercial = require('./routes/commercial')
 const connectDB = require('./db/connect');
 const cors = require('cors')
 
+//Set the DATABASE URI
+const URI = "mongodb+srv://MafTech:Aa123456@advprog.uynif.mongodb.net/AdvPRog?retryWrites=true&w=majority"
 //Set the express
 const app = express();
 
@@ -18,7 +20,8 @@ app.use('/commercials', commercial);
 
 const start = async () => {
     try {
-      await connectDB("mongodb://localhost:27017/AdvProg");
+      await connectDB(URI);
+      console.log("Connected to ATLAS")
       app.listen(port, () =>
         console.log(`Server is listening on port ${port}...`)
       );
