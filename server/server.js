@@ -3,8 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const commercial = require('./routes/commercial');
 const connectDB = require('./db/connect');
-// const cors = require('./middleware/cors')
-var cors = require('cors');
+const cors = require('./middleware/cors');
 
 //Set the DATABASE URI
 const URI =
@@ -16,7 +15,7 @@ const app = express();
 //Set the port
 const port = 3000;
 
-app.use(cors());
+app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/commercials', commercial);
 

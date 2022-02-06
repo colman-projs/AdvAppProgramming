@@ -24,9 +24,11 @@ function CommercialScreen() {
             setLoading(true);
             const res = await getCommercials();
 
-            if (res) {
+            if (res.commercials) {
                 console.log(res);
-                setCommercials(res.filter((comm) => comm.screenId === screen));
+                setCommercials(
+                    res.commercials.filter((comm) => comm.screenId === screen),
+                );
             } else alert.error('שגיאה בשליפת הפרסומות');
 
             setLoading(false);
