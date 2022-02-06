@@ -104,7 +104,7 @@ function CommercialScreen() {
     }, [query]);
 
     const renderCommercial = () => {
-        if (true || loading) return <Loader />;
+        if (loading) return <Loader />;
 
         if (!commercial)
             return <div className="no-ad">אין לנו פרסומת להציג לכם כרגע</div>;
