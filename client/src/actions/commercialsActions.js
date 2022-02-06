@@ -1,10 +1,10 @@
-import commercials from "../api/commercials";
+import commercials from '../api/commercials';
 
 export const getCommercials = async () => {
     try {
-        const { data } = await commercials.get("/");
+        const { data } = await commercials.get('/');
 
-        console.log("Commercials: ", data);
+        console.log('Commercials: ', data);
 
         return data;
     } catch (e) {

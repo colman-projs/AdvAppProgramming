@@ -1,24 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
-// import { SnackbarProvider } from "notistack";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { positions, Provider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-import "./index.scss";
+import './index.scss';
+
+const options = {
+    timeout: 5000,
+    position: positions.BOTTOM_LEFT,
+};
 
 ReactDOM.render(
     <React.StrictMode>
-        {/* <SnackbarProvider
-            maxSnack={5}
-            autoHideDuration={3000}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            TransitionProps={{ direction: "right" }}
-        > */}
-        <App />
-        {/* </SnackbarProvider> */}
+        <Provider template={AlertTemplate} {...options}>
+            <App />
+        </Provider>
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

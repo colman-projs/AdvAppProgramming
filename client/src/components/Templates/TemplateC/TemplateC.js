@@ -1,12 +1,12 @@
-import React from "react";
-import "./TemplateC.scss";
+import React from 'react';
+import './TemplateC.scss';
 
 function TemplateC({ commercial }) {
     return (
         <div id="contentC">
-            <h1 id="msg0"></h1>
-            <h2 id="msg1"></h2>
-            <p id="msg2"></p>
+            <h1 id="msg0">{commercial.messages[0]}</h1>
+            <h2 id="msg1">{commercial.messages[1]}</h2>
+            <p id="msg2">{commercial.messages[2]}</p>
             <p id="msg3"></p>
             <p id="msg4"></p>
             <p id="msg5"></p>
@@ -14,11 +14,21 @@ function TemplateC({ commercial }) {
             <p id="msg7"></p>
             <p id="msg8"></p>
             <p id="msg9"></p>
-            <img id="img0" />
-            <img id="img1" />
-            <img id="img2" />
-            <img id="img3" />
-            <img id="img4" />
+            {commercial.images[0] && (
+                <img id="img0" src={commercial.images[0]} alt="" />
+            )}
+            {commercial.images[1] && (
+                <img id="img1" src={commercial.images[1]} alt="" />
+            )}
+            {commercial.images[2] && (
+                <img id="img2" src={commercial.images[2]} alt="" />
+            )}
+            {commercial.images[3] && (
+                <img id="img3" src={commercial.images[3]} alt="" />
+            )}
+            {commercial.images[4] && (
+                <img id="img4" src={commercial.images[4]} alt="" />
+            )}
         </div>
     );
 }
