@@ -15,19 +15,19 @@ function TemplateC({ commercial }) {
             <p id="msg8"></p>
             <p id="msg9"></p>
             {commercial.images[0] && (
-                <img id="img0" src={commercial.images[0]} alt="" />
+                <img id="img0" src={commercial.images[0]} alt=" " />
             )}
             {commercial.images[1] && (
-                <img id="img1" src={commercial.images[1]} alt="" />
+                <img id="img1" src={commercial.images[1]} alt=" " />
             )}
             {commercial.images[2] && (
-                <img id="img2" src={commercial.images[2]} alt="" />
+                <img id="img2" src={commercial.images[2]} alt=" " />
             )}
             {commercial.images[3] && (
-                <img id="img3" src={commercial.images[3]} alt="" />
+                <img id="img3" src={commercial.images[3]} alt=" " />
             )}
             {commercial.images[4] && (
-                <img id="img4" src={commercial.images[4]} alt="" />
+                <img id="img4" src={commercial.images[4]} alt=" " />
             )}
         </div>
     );

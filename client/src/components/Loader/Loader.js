@@ -1,20 +1,14 @@
 import React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 import './Loader.scss';
 
-function Loader() {
+export default function CircularIndeterminate({ text }) {
     return (
-        <div className="ad">
-            {[...Array(6)].map((_obj, idx) => (
-                <section key={idx}>
-                    <img className="header-img skeleton" alt="" />
-                    <div className="skeleton skeleton-text"></div>
-                    <div className="skeleton skeleton-text"></div>
-                    <div className="skeleton skeleton-text"></div>
-                </section>
-            ))}
-        </div>
+        <Box sx={{ display: 'flex' }} className="loader-container">
+            <CircularProgress size="10rem" thickness={4} className="loader" />
+            {text && <div className="text">{text}</div>}
+        </Box>
     );
 }
-
-export default Loader;
