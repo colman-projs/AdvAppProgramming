@@ -1,8 +1,9 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const commercials = new Schema({
-    name: String
-})
+    name: String,
+    screenId: Number,
+});
 
-module.exports = mongoose.model('commercials', commercials)
+module.exports = mongoose.model("commercials", commercials);

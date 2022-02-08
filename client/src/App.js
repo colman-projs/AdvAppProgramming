@@ -3,11 +3,9 @@ import CommercialScreen from './components/CommercialScreen';
 
 function App() {
     return (
-        <div className="App">
-            <Router>
-                <CommercialScreen />
-            </Router>
-        </div>
+        <Router>
+            <CommercialScreen />
+        </Router>
     );
 }
 

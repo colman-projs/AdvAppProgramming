@@ -106,7 +106,17 @@ function CommercialScreen() {
     }, [query]);
 
     const renderCommercial = () => {
-        if (loading) return <Loader />;
+        if (loading) return <Loader text="הפרסומות נטענות..." />;
+
+        if (!screen)
+            return (
+                <>
+                    <div className="no-ad">לא נבחר מסך</div>
+                    <div className="no-ad">
+                        Add ?screen='screenId' in the Url
+                    </div>
+                </>
+            );
 
         if (!commercial)
             return <div className="no-ad">אין לנו פרסומת להציג לכם כרגע</div>;
