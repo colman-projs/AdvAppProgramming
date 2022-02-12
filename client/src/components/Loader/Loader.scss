@@ -1,18 +1,11 @@
 .loader-container {
     display: flex;
     flex-direction: column;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
     place-items: center;
 
     .text {
         text-align: center;
-        font-size: 5rem;
+        font-size: 3rem;
         font-weight: 500;
-        direction: rtl;
     }
 }

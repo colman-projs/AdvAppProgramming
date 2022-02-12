@@ -6,7 +6,7 @@ import './Loader.scss';
 
 export default function CircularIndeterminate({ text }) {
     return (
-        <Box sx={{ display: 'flex' }} className="loader-container">
+        <Box sx={{ display: 'flex' }} className="loader-container center">
             <CircularProgress size="10rem" thickness={4} className="loader" />
             {text && <div className="text">{text}</div>}
         </Box>
