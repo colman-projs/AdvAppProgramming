@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import CommercialForm from '../CommercialForm/CommercialForm';
 
 import './AdminPanel.scss';
 
@@ -62,10 +63,10 @@ export default function AdminPanel() {
             </AppBar>
             <div className="panels">
                 <TabPanel value={value} index={0}>
-                    Add Commercial
+                    <CommercialForm />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    Edit Commercial
+                    <CommercialForm isEdit />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     Clients Data

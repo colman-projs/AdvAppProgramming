@@ -2,6 +2,7 @@ import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
+import { authenticate } from '../../actions/adminActions';
 
 import './AdminLogin.scss';
 
@@ -19,8 +20,7 @@ function AdminLogin() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        // TODO: Call server to authenticate user
-        const authenticated = true;
+        const authenticated = authenticate(username, password);
 
         if (authenticated) setIsAdmin(true);
     }

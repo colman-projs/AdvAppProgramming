@@ -1,0 +1,12 @@
+.commercial-form {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 1rem;
+    width: 20%;
+
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
