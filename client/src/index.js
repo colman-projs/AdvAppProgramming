@@ -2,9 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { positions, Provider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@emotion/react';
 
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import { darkTheme } from './theme';
+import App from './App';
 
 import './index.scss';
 
@@ -15,9 +19,15 @@ const options = {
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider template={AlertTemplate} {...options}>
-            <App />
-        </Provider>
+        <ThemeProvider theme={darkTheme}>
+            <Provider template={AlertTemplate} {...options}>
+                <ErrorBoundary>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </ErrorBoundary>
+            </Provider>
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root'),
 );

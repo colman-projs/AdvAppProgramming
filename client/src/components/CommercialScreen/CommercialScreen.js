@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useAlert } from 'react-alert';
+import { useNavigate } from 'react-router-dom';
+import { Button, MenuItem, TextField } from '@mui/material';
 
-import { useQuery } from '../customHooks';
-import { getCommercials } from '../actions/commercialsActions';
-import { TemplateComponents, TEMPLATE_TYPES } from './Templates';
-import Loader from './Loader/Loader';
-import { DEFAULT_TIME_TO_WAIT_FOR_NEXT_COMMERCIAL_IN_SECONDS } from '../globals';
+import { useQuery } from '../../customHooks';
+import { getCommercials } from '../../actions/commercialsActions';
+import { TemplateComponents, TEMPLATE_TYPES } from '../Templates';
+import Loader from '../Loader/Loader';
+import {
+    DEFAULT_TIME_TO_WAIT_FOR_NEXT_COMMERCIAL_IN_SECONDS,
+    SCREENS,
+} from '../../globals';
 
 import './CommercialScreen.scss';
 
@@ -18,6 +23,7 @@ function CommercialScreen() {
     const [screen, setScreen] = useState(null);
     const alert = useAlert();
     let query = useQuery();
+    let navigate = useNavigate();
 
     useEffect(() => {
         const fetchCommercials = async () => {
@@ -27,7 +33,7 @@ function CommercialScreen() {
             if (res) {
                 console.log(res);
                 setCommercials(res);
-            } else alert.error('שגיאה בשליפת הפרסומות');
+            } else alert.error('Error while loading commercials');
 
             setLoading(false);
         };
@@ -106,25 +112,44 @@ function CommercialScreen() {
     }, [query]);
 
     const renderCommercial = () => {
-        if (loading) return <Loader text="הפרסומות נטענות..." />;
+        if (loading) return <Loader text="loading commercials..." />;
 
         if (!screen)
             return (
-                <>
-                    <div className="no-ad">לא נבחר מסך</div>
-                    <div className="no-ad">
-                        Add ?screen='screenId' in the Url
-                    </div>
-                </>
+                <div className="main center">
+                    <TextField
+                        select
+                        className="select-screen"
+                        label="Screen Id"
+                        onChange={(e) => navigate(`/?screen=${e.target.value}`)}
+                    >
+                        {SCREENS.map((screenId) => (
+                            <MenuItem key={screenId} value={screenId}>
+                                {screenId}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        onClick={() => navigate('/admin')}
+                    >
+                        Admin Login
+                    </Button>
+                </div>
             );
 
         if (!commercial)
-            return <div className="no-ad">אין לנו פרסומת להציג לכם כרגע</div>;
+            return (
+                <div className="no-ad center">
+                    No commercials to show at the moment
+                </div>
+            );
 
         return TemplateComponents[template](commercial);
     };
 
-    return renderCommercial();
+    return <>{renderCommercial()}</>;
 }
 
 export default CommercialScreen;
