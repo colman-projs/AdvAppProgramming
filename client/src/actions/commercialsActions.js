@@ -24,9 +24,9 @@ export const getCommercialById = async (commercialId) => {
     }
 };
 
-export const upsertCommercial = async (commercialId, commercial) => {
+export const upsertCommercial = async (commercial) => {
     try {
-        const { data } = await commercials.post(`/${commercialId}`, commercial);
+        const { data } = await commercials.post('/', commercial);
 
         return data;
     } catch (e) {

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const commercial = require('./routes/commercial');
+const admin = require('./routes/admin');
 const connectDB = require('./db/connect');
 const cors = require('./middleware/cors');
 
@@ -17,6 +18,7 @@ const port = 3000;
 app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/commercials', commercial);
+app.use('/admin', admin);
 
 const onStartup = async () => {
     connectDB(URI);
