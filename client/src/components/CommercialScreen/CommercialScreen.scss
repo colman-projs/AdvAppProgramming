@@ -4,12 +4,17 @@
     font-weight: 500;
 }
 
-.select-screen {
-    width: 14rem;
-}
-
 .main {
     display: grid;
-    grid-auto-flow: row;
+    grid-auto-flow: column;
     grid-gap: 1rem;
+
+    .screen-field {
+        display: flex;
+        flex-direction: column;
+
+        .select-screen {
+            width: 14rem;
+        }
+    }
 }

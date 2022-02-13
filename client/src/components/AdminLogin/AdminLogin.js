@@ -27,19 +27,27 @@ function AdminLogin() {
 
     return (
         <form onSubmit={handleSubmit} className="login center">
+            <h1>Admin Login: </h1>
             <TextField
+                required
                 autoFocus
                 label="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
+                required
                 type="password"
                 label="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+                className="login-button"
+                variant="contained"
+                color="primary"
+                type="submit"
+            >
                 Login
             </Button>
         </form>

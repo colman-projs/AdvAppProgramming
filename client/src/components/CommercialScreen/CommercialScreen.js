@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
-import { Button, MenuItem, TextField } from '@mui/material';
+import { MenuItem, TextField } from '@mui/material';
 
 import { useQuery } from '../../customHooks';
 import { getCommercials } from '../../actions/commercialsActions';
@@ -117,25 +117,23 @@ function CommercialScreen() {
         if (!screen)
             return (
                 <div className="main center">
-                    <TextField
-                        select
-                        className="select-screen"
-                        label="Screen Id"
-                        onChange={(e) => navigate(`/?screen=${e.target.value}`)}
-                    >
-                        {SCREENS.map((screenId) => (
-                            <MenuItem key={screenId} value={screenId}>
-                                {screenId}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <Button
-                        color="primary"
-                        variant="outlined"
-                        onClick={() => navigate('/admin')}
-                    >
-                        Admin Login
-                    </Button>
+                    <div className="screen-field">
+                        <h1>Choose a Screen:</h1>
+                        <TextField
+                            select
+                            className="select-screen"
+                            label="Screen Id"
+                            onChange={(e) =>
+                                navigate(`/?screen=${e.target.value}`)
+                            }
+                        >
+                            {SCREENS.map((screenId) => (
+                                <MenuItem key={screenId} value={screenId}>
+                                    {screenId}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </div>
                 </div>
             );
 
