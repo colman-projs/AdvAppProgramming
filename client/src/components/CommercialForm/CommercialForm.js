@@ -66,6 +66,8 @@ function CommercialForm({ isEdit }) {
         setLoading(false);
     };
 
+    // TODO: Add all commercial form fields
+
     return (
         <form onSubmit={handleSubmit} className="commercial-form center">
             {loading ? (
