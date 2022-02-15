@@ -14,7 +14,8 @@ const URI =
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const io = require('socket.io').listen(server);
+const { Server } = require('socket.io');
+const io = new Server(server);
 
 //Set the port
 const port = 3000;
@@ -34,10 +35,8 @@ const onStartup = async () => {
         console.log(`Server is listening on port ${port}...`),
     );
 
-// usernames which are currently connected to the chat
-var usernames = {};
-
-io.sockets.on('connection', function (socket) {
+  server.listen(port);
+io.on('connect', function (socket) {
 
   /**
   When connecting, we want to write the client to the DB
@@ -47,7 +46,7 @@ io.sockets.on('connection', function (socket) {
       and then generate a userid and send it back to the client
   */
   var id = 1; // TODO: set users
-    io.sockets.emit('id', id);
+  socket.emit('id', id);
 
   // TODO: save users in DB
 
