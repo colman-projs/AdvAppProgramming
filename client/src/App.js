@@ -28,18 +28,14 @@ function App() {
         
 
         if (admin) setIsAdmin(true);
+        
+        socket.on("id", function (id) {
+            console.log(id);
+            // TODO: something with ID
+        });
     }, []);
 
     return (
-        // <script src="/socket.io/socket.io.js"></script>
-        // <script>
-        //     var socket = io.connect("http://localhost:8080");
-        //     socket.on("connect", function () {
-        //     });
-        //     socket.on("id", function (id) {
-        //         // TODO: something with ID
-        //     });
-        // </script>
         <AdminContext.Provider value={{ isAdmin, setIsAdmin }}>
             <AdminAvatar />
             <Routes>
