@@ -13,6 +13,7 @@ import {
     MeetingRoom,
 } from '@mui/icons-material';
 
+import { logout } from '../../actions/adminActions';
 import { AdminContext } from '../../context/AdminContext';
 
 import './AdminAvatar.scss';
@@ -107,6 +108,7 @@ export default function AdminAvatar() {
                     <MenuItem
                         className="logout-item"
                         onClick={() => {
+                            logout();
                             navigate('/');
                             setIsAdmin(false);
                             handleClose();
