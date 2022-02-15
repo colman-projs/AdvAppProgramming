@@ -8,14 +8,17 @@ const cors = require('./middleware/cors');
 
 //Set the DATABASE URI
 const URI =
-    'mongodb+srv://MafTech:Aa123456@advprog.uynif.mongodb.net/AdvPRog?retryWrites=true&w=majority';
+  'mongodb+srv://MafTech:Aa123456@advprog.uynif.mongodb.net/AdvPRog?retryWrites=true&w=majority';
 
 //Set the express
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require('socket.io');
-const io = new Server(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*'
+  }
+});
 
 //Set the port
 const port = 3000;
@@ -23,40 +26,34 @@ const port = 3000;
 app.use(cors);
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use('/commercials', commercial);
 app.use('/admins', admin);
 
 const onStartup = async () => {
-    connectDB(URI);
+  connectDB(URI);
 
-    app.listen(port, () =>
-        console.log(`Server is listening on port ${port}...`),
-    );
+  server.listen(port, () =>
+    console.log(`Server is listening on port ${port}...`),
+  );
 
-  server.listen(port);
-io.on('connect', function (socket) {
+  io.on('connect', function (socket) {
 
-  /**
-  When connecting, we want to write the client to the DB
-    We need to generate an ID for the client?
-      - to send it back? 
-      yes , when client connected to server - we check in the DB for all users
-      and then generate a userid and send it back to the client
-  */
-  var id = 1; // TODO: set users
-  socket.emit('id', id);
+    var id = 1; // TODO: set users
+    socket.emit('id', id);
 
-  // TODO: save users in DB
+    // TODO: save users in DB
 
-  // when the user disconnects.. perform this
-  socket.on('disconnect', function(){
-    
-    // TODO: Remove user
-    
+    // when the user disconnects.. perform this
+    socket.on('disconnect', function () {
+
+      // TODO: Remove user
+
+    });
   });
-});
 
 };
 
