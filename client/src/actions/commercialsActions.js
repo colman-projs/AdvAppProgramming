@@ -1,3 +1,4 @@
+import authHeader from '../api/auth-header';
 import commercials from '../api/commercials';
 
 export const getCommercials = async (screenId) => {
@@ -14,7 +15,9 @@ export const getCommercials = async (screenId) => {
 
 export const getCommercialById = async (commercialId) => {
     try {
-        const { data } = await commercials.get(`/${commercialId}`);
+        const { data } = await commercials.get(`/${commercialId}`, {
+            headers: authHeader(),
+        });
 
         console.log('Commercials: ', data);
 
@@ -26,7 +29,9 @@ export const getCommercialById = async (commercialId) => {
 
 export const upsertCommercial = async (commercial) => {
     try {
-        const { data } = await commercials.post('/', commercial);
+        const { data } = await commercials.post('/', commercial, {
+            headers: authHeader(),
+        });
 
         return data;
     } catch (e) {
@@ -36,7 +41,9 @@ export const upsertCommercial = async (commercial) => {
 
 export const deleteCommercial = async (commercialId) => {
     try {
-        const { data } = await commercials.delete(`/${commercialId}`);
+        const { data } = await commercials.delete(`/${commercialId}`, {
+            headers: authHeader(),
+        });
 
         return data;
     } catch (e) {
