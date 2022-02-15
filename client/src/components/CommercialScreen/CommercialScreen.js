@@ -11,6 +11,7 @@ import {
     DEFAULT_TIME_TO_WAIT_FOR_NEXT_COMMERCIAL_IN_SECONDS,
     SCREENS,
 } from '../../globals';
+import { socket } from '../../socket';
 
 import './CommercialScreen.scss';
 
@@ -124,7 +125,10 @@ function CommercialScreen() {
                             className="select-screen"
                             label="Screen Id"
                             onChange={(e) =>
-                                navigate(`/?screen=${e.target.value}`)
+                            {
+                                socket.emit("screen", e.target.value);
+                                navigate(`/?screen=${e.target.value}`);
+                            }
                             }
                         >
                             {SCREENS.map((screenId) => (

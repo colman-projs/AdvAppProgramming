@@ -46,6 +46,10 @@ const onStartup = async () => {
     socket.emit('id', id);
 
     // TODO: save users in DB
+    socket.on('screen', function (screen) {
+      console.log(`screen: ${screen}`);
+    });
+
 
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
