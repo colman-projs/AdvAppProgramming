@@ -9,6 +9,8 @@ import { AdminContext } from './context/AdminContext';
 import AdminAvatar from './components/AdminAvatar/AdminAvatar';
 import AdminProfile from './components/AdminProfile/AdminProfile';
 import { getCurrentAdmin } from './actions/adminActions';
+import { socket } from './socket';
+
 
 import './App.scss';
 
@@ -19,18 +21,14 @@ function App() {
         const admin = getCurrentAdmin();
 
         if (admin) setIsAdmin(true);
+        
+        socket.on("id", function (id) {
+            console.log(id);
+            // TODO: something with ID
+        });
     }, []);
 
     return (
-        // <script src="/socket.io/socket.io.js"></script>
-        // <script>
-        //     var socket = io.connect("http://localhost:8080");
-        //     socket.on("connect", function () {
-        //     });
-        //     socket.on("id", function (id) {
-        //         // TODO: something with ID
-        //     });
-        // </script>
         <AdminContext.Provider value={{ isAdmin, setIsAdmin }}>
             <AdminAvatar />
             <Routes>
