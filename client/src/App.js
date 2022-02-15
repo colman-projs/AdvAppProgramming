@@ -9,6 +9,7 @@ import { AdminContext } from './context/AdminContext';
 import AdminAvatar from './components/AdminAvatar/AdminAvatar';
 import AdminProfile from './components/AdminProfile/AdminProfile';
 import { getCurrentAdmin } from './actions/adminActions';
+import { socket } from './socket';
 
 import './App.scss';
 
@@ -17,6 +18,14 @@ function App() {
 
     useEffect(() => {
         const admin = getCurrentAdmin();
+
+        socket.on("connect", function () {
+        });
+        socket.on("id", function (id) {
+            console.log(id);
+            // TODO: something with ID
+        });
+        
 
         if (admin) setIsAdmin(true);
     }, []);
