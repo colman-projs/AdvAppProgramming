@@ -3,9 +3,7 @@ import commercials from '../api/commercials';
 import { socket } from '../socket';
 
 
-socket.on('updateCommerical', function () {
-    getCommercials();
-});
+
 
 export const getCommercials = async (screenId) => {
     try {

@@ -2,6 +2,9 @@ const Commercial = require('../models/commercial');
 const errorHandler = require('../globals').errorHandler;
 
 const defaultCommercials = require('../commercials');
+const { getIo } = require('../globals');
+
+const io = getIo();
 
 const upsertCommercial = (req, res) => {
     const commercial = new Commercial(req.body);
