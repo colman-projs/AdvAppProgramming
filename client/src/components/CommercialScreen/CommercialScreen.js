@@ -64,10 +64,10 @@ function CommercialScreen() {
             return (
                 (timeSet.daysInWeek.length === 0 ||
                     timeSet.daysInWeek.includes(currDate.getDay())) &&
-                currDate >= timeSet.startDate &&
-                currDate <= timeSet.endDate &&
-                time >= timeSet.startTime &&
-                time <= timeSet.endTime
+                currDate >= new Date(timeSet.startDate) &&
+                currDate <= new Date(timeSet.endDate) &&
+                +time >= +timeSet.startTime &&
+                +time <= +timeSet.endTime
             );
         };
 
