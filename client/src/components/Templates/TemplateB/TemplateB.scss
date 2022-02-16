@@ -5,10 +5,16 @@
     display: grid;
     background-color: lightpink;
     font-family: serif;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 #msg9 {
     font-size: 1rem;
 }
-#img1 {
-    width: 2rem;
+#img0,
+#img1,
+#img2,
+#img3,
+#img4 {
+    width: inherit;
 }
