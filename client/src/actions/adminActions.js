@@ -29,10 +29,6 @@ export const updateDetails = async (username, password) => {
             { headers: authHeader() },
         );
 
-        if (data.accessToken) {
-            localStorage.setItem('admin', JSON.stringify(data));
-        }
-
         return data;
     } catch (e) {
         console.error(e);
@@ -48,6 +44,11 @@ export const getCurrentAdmin = () => {
 };
 
 export const getClients = async () => {
-    const { data } = await admin.get('/clients');
-    return data
-}
+    try {
+        const { data } = await admin.get('/clients');
+
+        return data;
+    } catch (e) {
+        console.error(e);
+    }
+};

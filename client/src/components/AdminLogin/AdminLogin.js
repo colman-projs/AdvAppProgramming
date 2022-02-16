@@ -1,10 +1,12 @@
-import { Button, TextField } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useAlert } from 'react-alert';
 import React, { useContext, useEffect, useState } from 'react';
+import { TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Login } from '@mui/icons-material';
+import { useAlert } from 'react-alert';
+
 import { AdminContext } from '../../context/AdminContext';
 import { authenticate } from '../../actions/adminActions';
-import Loader from '../Loader/Loader';
 
 import './AdminLogin.scss';
 
@@ -35,36 +37,32 @@ function AdminLogin() {
 
     return (
         <form onSubmit={handleSubmit} className="login center">
-            {loading ? (
-                <Loader text="Connecting..." />
-            ) : (
-                <>
-                    <h1>Admin Login: </h1>
-                    <TextField
-                        required
-                        autoFocus
-                        label="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <TextField
-                        required
-                        type="password"
-                        label="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <Button
-                        className="login-button"
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        disabled={loading}
-                    >
-                        Login
-                    </Button>
-                </>
-            )}
+            <h1>Admin Login: </h1>
+            <TextField
+                required
+                autoFocus
+                label="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+                required
+                type="password"
+                label="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <LoadingButton
+                className="login-button"
+                variant="contained"
+                color="primary"
+                type="submit"
+                loading={loading}
+                loadingPosition="end"
+                endIcon={<Login />}
+            >
+                Login
+            </LoadingButton>
         </form>
     );
 }
