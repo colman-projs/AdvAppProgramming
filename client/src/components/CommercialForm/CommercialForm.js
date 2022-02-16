@@ -127,7 +127,6 @@ function CommercialForm({ isEdit }) {
         setLoading(false);
     };
 
-    // TODO: Add all commercial form fields
     const fields = commercial && (
         <div className="edit-fields">
             <TextField
