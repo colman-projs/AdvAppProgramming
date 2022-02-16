@@ -1,10 +1,9 @@
-import { Button, TextField } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
+import moment from 'moment';
 import { getClients } from '../../actions/adminActions';
 import Loader from '../Loader/Loader';
 import { socket } from '../../socket';
-
 
 import './ClientsList.scss';
 
@@ -29,42 +28,39 @@ function ClientsList() {
     useEffect(() => {
         fetchClients();
 
-        socket.on('updateClients', function () {
-            fetchClients();
-        });
+        socket.on('updateClients', () => fetchClients());
     }, [fetchClients]);
 
     return (
-        <div>
-            {' '}
+        <div className="clients-data center">
             {loading ? (
                 <Loader />
             ) : (
                 <table>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Screen</th>
-                            <th>Connect Time</th>
-                            <th>Disconnect Time</th>
+                            <td>Id</td>
+                            <td>Screen</td>
+                            <td>Connect Time</td>
+                            <td>Disconnect Time</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {clients.map((client, i) => {
+                        {clients.map((client) => {
                             return (
                                 <tr>
                                     <td>{client._id}</td>
                                     <td>{client.screenId}</td>
                                     <td>
-                                        {new Date(
-                                            client.connected,
-                                        ).toLocaleDateString()}
+                                        {moment(
+                                            new Date(client.connected),
+                                        ).format('DD/MM/YYYY HH:mm')}
                                     </td>
                                     <td>
                                         {client.disconnected
-                                            ? new Date(
-                                                  client.disconnected,
-                                              ).toLocaleDateString()
+                                            ? moment(
+                                                  new Date(client.disconnected),
+                                              ).format('DD/MM/YYYY HH:mm')
                                             : ''}
                                     </td>
                                 </tr>
@@ -72,42 +68,8 @@ function ClientsList() {
                         })}
                     </tbody>
                 </table>
-
-
-
-            )
-            }
-            {' '}
+            )}
         </div>
-        // <form onSubmit={handleSubmit} className="admin-profile-edit center">
-        //     {loading ? (
-        //         <Loader />
-        //     ) : (
-        //         <>
-        //             <h1>Admin Profile Settings: </h1>
-        //             <TextField
-        //                 autoFocus
-        //                 label="Username"
-        //                 value={username}
-        //                 onChange={(e) => setUsername(e.target.value)}
-        //             />
-        //             <TextField
-        //                 type="password"
-        //                 label="Password"
-        //                 value={password}
-        //                 onChange={(e) => setPassword(e.target.value)}
-        //             />
-        //             <Button
-        //                 className="edit-button"
-        //                 variant="contained"
-        //                 color="primary"
-        //                 type="submit"
-        //             >
-        //                 Update details
-        //             </Button>
-        //         </>
-        //     )}
-        // </form>
     );
 }
 
