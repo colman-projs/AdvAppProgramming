@@ -56,10 +56,14 @@ const reduceTime = t => t.replaceAll(':', '');
 
 const expandTime = t => `${t[0]}${t[1]}:${t[2]}${t[3]}:${t[4]}${t[5]}`;
 
+const reduceDate = d => new Date(d).toJSON().split('T')[0];
+
 const getSetText = t =>
-    `${t.startDate} - ${t.endDate}, ${expandTime(t.startTime)} - ${expandTime(
-        t.endTime,
-    )}, ${t.daysInWeek.map(d => WEEKDAYS[d]).join(', ')}`;
+    `${reduceDate(t.startDate)} - ${reduceDate(t.endDate)}, ${expandTime(
+        t.startTime,
+    )} - ${expandTime(t.endTime)}, ${t.daysInWeek
+        .map(d => WEEKDAYS[d])
+        .join(', ')}`;
 
 function TimesetSelector({ timesets, onChange }) {
     const [timeset, setTimeset] = useState(DEFAULT_STATE);
