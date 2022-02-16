@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 
+let _io;
+
+const setIo = (io) => {
+    _io = io;
+}
+
+const getIo = () => {
+    return _io;
+}
+
 const errorHandler = (res) => (err) => {
     console.error(err);
     if (err instanceof mongoose.Error.ValidationError) {
@@ -13,4 +23,6 @@ const errorHandler = (res) => (err) => {
 
 module.exports = {
     errorHandler,
+    setIo,
+    getIo
 };

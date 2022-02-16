@@ -7,6 +7,7 @@ const commercialDb = require("./controllers/commercial");
 const connectDB = require("./db/connect");
 const cors = require("./middleware/cors");
 const { resetCommercials } = require('./controllers/commercial');
+const { setIo } = require("./globals");
 
 //Set the DATABASE URI
 const URI =
@@ -21,6 +22,8 @@ const io = require("socket.io")(server, {
     origin: "*",
   },
 });
+
+setIo(io);
 
 //Set the port
 const port = 3000;
