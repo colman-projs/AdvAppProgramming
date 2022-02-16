@@ -151,6 +151,8 @@ function CommercialForm({ isEdit }) {
             <TextField
                 label="Duration"
                 type="number"
+                value={commercial.durationInSeconds}
+                onChange={handleChangeField('durationInSeconds')}
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position="end">s</InputAdornment>
