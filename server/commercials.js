@@ -12,7 +12,7 @@ const commercials = [
             'https://www.incimages.com/uploaded_files/image/1920x1080/getty_495142964_198701.jpg',
             'https://www.statecollege.com/wp-content/uploads/2022/01/success-stock-scaled.jpeg',
         ],
-        template: 'templateA',
+        template: 1,
         durationInSeconds: 5,
         screenId: [1, 2],
         timeSets: [
@@ -49,7 +49,7 @@ const commercials = [
         images: [
             'https://www.recipetineats.com/wp-content/uploads/2020/05/Pepperoni-Pizza_5-SQjpg.jpg',
         ],
-        template: 'templateB',
+        template: 2,
         durationInSeconds: 5,
         screenId: [1, 3],
         timeSets: [
@@ -66,7 +66,7 @@ const commercials = [
         name: 'Advertisement',
         messages: [],
         images: [],
-        template: 'templateC',
+        template: 3,
         durationInSeconds: 5,
         screenId: [2, 3],
         timeSets: [
@@ -86,7 +86,7 @@ const commercials = [
             'The best prices hands down.',
         ],
         images: [],
-        template: 'templateA',
+        template: 1,
         durationInSeconds: 5,
         screenId: [1],
         timeSets: [
@@ -116,7 +116,7 @@ const commercials = [
             'https://www.investopedia.com/thmb/513SZ-nXDzK3nLYG6hOlQr_mSL4=/2121x1193/smart/filters:no_upscale()/Investingjourneypic-12651a1840124b9d84467deb065e7b26-bfb2d9b73a524490acbed28a3c4ffecf.jpg',
             'https://imageio.forbes.com/specials-images/imageserve/5d6ba3db68cb0a0008c1089e/Financial-and-Technical-Data-Analysis-Graph-Showing-Stock-Market-Trends/960x0.jpg?fit=bounds&format=jpg&width=960',
         ],
-        template: 'templateB',
+        template: 2,
         durationInSeconds: 5,
         screenId: [3],
         timeSets: [
