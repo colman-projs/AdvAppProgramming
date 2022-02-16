@@ -1,6 +1,8 @@
 const Commercial = require('../models/commercial');
 const errorHandler = require('../globals').errorHandler;
 
+const defaultCommercials = require('../commercials');
+
 const upsertCommercial = (req, res) => {
     const commercial = new Commercial(req.body);
 
@@ -46,10 +48,10 @@ const deleteCommercial = (req, res) => {
         .catch(errorHandler(res));
 };
 
-const resetCommercials = () => {
-    Commercial.deleteMany().then(() => {
-        Commercial.create(); //TODO
-    });
+const resetCommercials = async () => {
+    console.log('Reseting DB...');
+    await Commercial.deleteMany();
+    await Commercial.create(defaultCommercials);
 };
 
 module.exports = {
@@ -58,4 +60,5 @@ module.exports = {
     upsertCommercial,
     getCommercialById,
     deleteCommercial,
+    resetCommercials,
 };

@@ -14,14 +14,14 @@ const commercials = [
         screenId: [1, 2],
         timeSets: [
             {
-                startDate: new Date(2019),
+                startDate: new Date(2019, 0, 1),
                 endDate: new Date(2019, 11, 31, 23, 59, 59),
                 startTime: '060000',
                 endTime: '125959',
                 daysInWeek: [1],
             },
             {
-                startDate: new Date(2019),
+                startDate: new Date(2019, 0, 1),
                 endDate: new Date(2019, 11, 31, 23, 59, 59),
                 startTime: '130000',
                 endTime: '205959',
@@ -124,3 +124,5 @@ const commercials = [
         ],
     },
 ];
+
+module.exports = commercials;
