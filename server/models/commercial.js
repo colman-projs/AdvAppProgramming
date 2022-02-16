@@ -31,7 +31,7 @@ const Commercial = new Schema({
         validate: m => m.length <= 5,
     },
     template: {
-        type: String,
+        type: Number,
         required: true,
     },
     durationInSeconds: {
