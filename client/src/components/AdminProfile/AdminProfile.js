@@ -1,59 +1,91 @@
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
+import { Save as SaveIcon } from '@mui/icons-material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { updateDetails } from '../../actions/adminActions';
-import Loader from '../Loader/Loader';
 
 import './AdminProfile.scss';
 
 function AdminProfile() {
-    const [loading, setLoading] = useState(false);
+    const [loadingUsername, setLoadingUsername] = useState(false);
+    const [loadingPassword, setLoadingPassword] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const alert = useAlert();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const updateUsername = async () => {
+        if (!username) return alert.info('Empty Username');
 
-        setLoading(true);
-        const res = await updateDetails(username, password);
+        setLoadingUsername(true);
 
-        if (res) alert.success('Admin details were updated successfuly');
-        else alert.error("Couldn't update admin details");
+        const res = await updateDetails(username, '');
 
-        setLoading(false);
+        if (res) {
+            setUsername('');
+            alert.success('Username was updated successfuly');
+        } else alert.error("Couldn't update username");
+
+        setLoadingUsername(false);
+    };
+
+    const updatePassword = async () => {
+        if (!password) return alert.info('Empty Password');
+
+        setLoadingPassword(true);
+
+        const res = await updateDetails('', password);
+
+        if (res) {
+            setPassword('');
+            alert.success('Password was updated successfuly');
+        } else alert.error("Couldn't update password");
+
+        setLoadingPassword(false);
     };
 
     return (
-        <form onSubmit={handleSubmit} className="admin-profile-edit center">
-            {loading ? (
-                <Loader />
-            ) : (
-                <>
-                    <h1>Admin Profile Settings: </h1>
-                    <TextField
-                        autoFocus
-                        label="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <TextField
-                        type="password"
-                        label="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <Button
-                        className="edit-button"
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                    >
-                        Update details
-                    </Button>
-                </>
-            )}
-        </form>
+        <div className="admin-profile-edit center">
+            <h1>Admin Profile Settings: </h1>
+            <span>
+                <TextField
+                    autoFocus
+                    label="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <LoadingButton
+                    loading={loadingUsername}
+                    className="edit-button"
+                    variant="contained"
+                    color="primary"
+                    onClick={updateUsername}
+                    loadingPosition="end"
+                    endIcon={<SaveIcon />}
+                >
+                    Update
+                </LoadingButton>
+            </span>
+            <span>
+                <TextField
+                    type="password"
+                    label="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <LoadingButton
+                    loading={loadingPassword}
+                    className="edit-button"
+                    variant="contained"
+                    color="primary"
+                    onClick={updatePassword}
+                    loadingPosition="end"
+                    endIcon={<SaveIcon />}
+                >
+                    Update
+                </LoadingButton>
+            </span>
+        </div>
     );
 }
 
