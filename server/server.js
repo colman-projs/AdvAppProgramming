@@ -16,9 +16,12 @@ const app = express();
 const port = 3000;
 
 app.use(cors);
+
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/commercials', commercial);
-app.use('/admin', admin);
+app.use('/admins', admin);
 
 const onStartup = async () => {
     connectDB(URI);
