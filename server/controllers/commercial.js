@@ -14,7 +14,7 @@ const upsertCommercial = (req, res) => {
 
 const getCommercials = (_req, res) => {
     Commercial.find()
-        .then((commercials) => {
+        .then(commercials => {
             res.json(commercials);
         })
         .catch(errorHandler(res));
@@ -24,7 +24,7 @@ const getCommercialsByScreenId = (req, res) => {
     const { screenId } = req.params;
 
     Commercial.find({ screenId })
-        .then((commercials) => {
+        .then(commercials => {
             res.json(commercials);
         })
         .catch(errorHandler(res));
@@ -32,7 +32,7 @@ const getCommercialsByScreenId = (req, res) => {
 
 const getCommercialById = (req, res) => {
     Commercial.findById(req.params.commercialId)
-        .then((commercial) => {
+        .then(commercial => {
             res.json(commercial);
         })
         .catch(errorHandler(res));
@@ -40,10 +40,16 @@ const getCommercialById = (req, res) => {
 
 const deleteCommercial = (req, res) => {
     Commercial.deleteOne({ _id: req.params.commercialId })
-        .then((deleteRes) => {
+        .then(deleteRes => {
             res.json(deleteRes);
         })
         .catch(errorHandler(res));
+};
+
+const resetCommercials = () => {
+    Commercial.deleteMany().then(() => {
+        Commercial.create(); //TODO
+    });
 };
 
 module.exports = {
