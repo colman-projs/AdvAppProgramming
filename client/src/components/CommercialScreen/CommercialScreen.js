@@ -32,7 +32,6 @@ function CommercialScreen() {
             const res = await getCommercials(screen);
 
             if (res) {
-                console.log(res);
                 setCommercials(res);
             } else alert.error('Error while loading commercials');
 
@@ -93,12 +92,9 @@ function CommercialScreen() {
         };
 
         const getNextCommercial = (comm) => {
-            console.log(commercial?.name);
-            console.log('Try to get next commercial');
             const currCommercial = ignoreTimeSets
             ? getCommercialToShow(comm)
             : getCommercialToShowByTimeSet();
-            console.log('Got commercial ' , currCommercial?.name);
 
             setTemplate(
                 currCommercial?.template || TEMPLATE_TYPES.DefaultTemplate,

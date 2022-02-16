@@ -76,8 +76,6 @@ function TimesetSelector({ timesets, onChange }) {
         onChange([...timesets.slice(0, index), ...timesets.slice(index + 1)]);
     };
 
-    console.log(timeset);
-
     return (
         <div style={{ gridColumn: 'span 4' }}>
             <h3>Time sets</h3>
