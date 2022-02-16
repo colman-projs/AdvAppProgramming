@@ -43,9 +43,6 @@ function CommercialScreen() {
 
         fetchCommercials();
 
-        socket.on('updateClients', function () {
-            fetchCommercials();
-        });
     }, [screen, alert]);
 
     useEffect(() => {
