@@ -4,12 +4,12 @@ const router = express.Router();
 
 router.get('/', commercialController.getCommercials);
 
-router.get('/:screenId', commercialController.getCommercialsByScreenId);
+router.get('/:screenId(\\d+)', commercialController.getCommercialsByScreenId);
 
 router.get('/:commercialId', commercialController.getCommercialById);
 
 router.post('/', commercialController.upsertCommercial);
 
-router.delete('/', commercialController.deleteCommercial);
+router.delete('/:commercialId', commercialController.deleteCommercial);
 
 module.exports = router;
