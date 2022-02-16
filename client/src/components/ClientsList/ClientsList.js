@@ -18,7 +18,6 @@ function ClientsList() {
 
         const res = await getClients();
         if (res) {
-            console.log(res);
             setClients(res);
         } else alert.error('Error while loading clients');
 

@@ -45,7 +45,6 @@ function CommercialForm({ isEdit }) {
         const res = await getCommercials();
 
         if (res) {
-            console.log(res);
             setCommercials(res);
         } else alert.error('Error while loading commercials');
 
@@ -202,7 +201,6 @@ function CommercialForm({ isEdit }) {
 
     const changeCommercial = e => {
         let comm = commercials.find(comm => comm._id === e.target.value);
-        console.log(comm);
         comm = {
             ...comm,
             messages: comm.messages.join('\n'),

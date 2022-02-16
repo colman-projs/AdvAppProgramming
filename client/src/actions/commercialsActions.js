@@ -5,8 +5,6 @@ export const getCommercials = async screenId => {
     try {
         const { data } = await commercials.get(screenId ? `/${screenId}` : '/');
 
-        console.log('Commercials: ', data);
-
         return data;
     } catch (e) {
         console.error(e);
@@ -18,8 +16,6 @@ export const getCommercialById = async commercialId => {
         const { data } = await commercials.get(`/${commercialId}`, {
             headers: authHeader(),
         });
-
-        console.log('Commercials: ', data);
 
         return data;
     } catch (e) {
