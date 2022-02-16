@@ -18,10 +18,10 @@ import { AdminContext } from '../../context/AdminContext';
 
 import './AdminAvatar.scss';
 
-const StyledBadge = styled(Badge)(({ theme, isadmin }) => ({
+const StyledBadge = styled(Badge)(({ theme, isAdmin }) => ({
     '& .MuiBadge-badge': {
-        backgroundColor: isadmin ? '#44b700' : 'var(--alerting-red)',
-        color: isadmin ? '#44b700' : 'var(--alerting-red)',
+        backgroundColor: isAdmin ? '#44b700' : 'var(--alerting-red)',
+        color: isAdmin ? '#44b700' : 'var(--alerting-red)',
         boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
         '&::after': {
             position: 'absolute',
@@ -58,7 +58,7 @@ export default function AdminAvatar() {
                 className="admin-avatar"
             >
                 <StyledBadge
-                    isadmin={'' + isAdmin}
+                    isAdmin={isAdmin}
                     overlap="circular"
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     variant="dot"
