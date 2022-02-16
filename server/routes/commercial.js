@@ -13,7 +13,10 @@ router.get(
     commercialController.getCommercialById,
 );
 
-router.post('/', authJwt.verifyToken, commercialController.upsertCommercial);
+router.post(
+    '/',
+    /*authJwt.verifyToken,*/ commercialController.upsertCommercial,
+);
 
 router.delete(
     '/:commercialId',

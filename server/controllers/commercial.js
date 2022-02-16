@@ -7,7 +7,7 @@ const upsertCommercial = (req, res) => {
     commercial
         .save()
         .then(() => {
-            res.redirect('/commercial');
+            res.end();
         })
         .catch(errorHandler(res));
 };
