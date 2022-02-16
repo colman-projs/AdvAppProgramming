@@ -50,39 +50,38 @@ const onStartup = async () => {
     let clientId = null;
     clientDb.createClient(Date.now()).then((result) => {
       clientId = result;
-
       socket.emit("id", clientId);
-      console.log("Client " + clientId + " Conntected");
+      io.sockets.emit('updateClients');
     });
 
+
     socket.on("screen", function (screen) {
-      console.log(`screen: ${screen}`);
       clientDb.updateClient(
         clientId,
         {
           screenId: screen,
         },
-        io
       );
+      io.sockets.emit('updateClients');
     });
 
     socket.on("disconnect", function () {
-      console.log("Client " + clientId + " Disconnected");
       clientDb.updateClient(
         clientId,
         {
           disconnected: Date.now(),
         },
-        io
       );
+      io.sockets.emit('updateClients');
     });
   });
 
+
     await resetCommercials();
 
-    app.listen(port, () =>
-        console.log(`Server is listening on port ${port}...`),
-    );
+    // app.listen(port, () =>
+    //     console.log(`Server is listening on port ${port}...`),
+    // );
 };
 
 onStartup();

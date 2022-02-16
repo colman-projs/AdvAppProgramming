@@ -5,6 +5,7 @@ import { getClients } from '../../actions/adminActions';
 import Loader from '../Loader/Loader';
 import { socket } from '../../socket';
 
+
 import './ClientsList.scss';
 
 function ClientsList() {
@@ -71,7 +72,12 @@ function ClientsList() {
                         })}
                     </tbody>
                 </table>
-            )}{' '}
+
+
+
+            )
+            }
+            {' '}
         </div>
         // <form onSubmit={handleSubmit} className="admin-profile-edit center">
         //     {loading ? (
