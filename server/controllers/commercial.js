@@ -4,10 +4,10 @@ const errorHandler = require('../globals').errorHandler;
 const defaultCommercials = require('../commercials');
 
 const upsertCommercial = (req, res) => {
-    const commercial = new Commercial(req.body);
-
-    commercial
-        .save()
+    Commercial.findOneAndUpdate({ _id: req.body._id }, req.body, {
+        new: true,
+        upsert: true,
+    })
         .then(() => {
             res.send(true);
         })

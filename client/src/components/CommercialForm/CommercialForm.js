@@ -103,7 +103,7 @@ function CommercialForm({ isEdit }) {
                 } successfuly`,
             );
 
-            setCommercial(INITIAL_STATE);
+            !isEdit && setCommercial(INITIAL_STATE);
 
             await fetchCommercials();
         } else {
@@ -229,6 +229,7 @@ function CommercialForm({ isEdit }) {
                                 renderValue: comm =>
                                     commercials.find(c => c._id === comm)?.name,
                             }}
+                            fullWidth
                         >
                             {commercials.map(comm => (
                                 <MenuItem key={comm._id} value={comm._id}>
@@ -238,30 +239,32 @@ function CommercialForm({ isEdit }) {
                         </TextField>
                     )}
                     {fields}
-                    <div className="actions">
-                        <Button
-                            variant="contained"
-                            onClick={() => setCommercial(INITIAL_STATE)}
-                        >
-                            Clear
-                        </Button>
-                        {isEdit && (
+                    {((isEdit && selected) || !isEdit) && (
+                        <div className="actions">
                             <Button
                                 variant="contained"
-                                color="secondary"
-                                onClick={onDeleteCommercial}
+                                onClick={() => setCommercial(INITIAL_STATE)}
                             >
-                                Delete
+                                Clear
                             </Button>
-                        )}
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                        >
-                            {isEdit ? 'Save' : 'Create'}
-                        </Button>
-                    </div>
+                            {isEdit && (
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={onDeleteCommercial}
+                                >
+                                    Delete
+                                </Button>
+                            )}
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                            >
+                                {isEdit ? 'Save' : 'Create'}
+                            </Button>
+                        </div>
+                    )}
                 </>
             )}
         </form>
