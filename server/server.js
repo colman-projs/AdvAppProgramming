@@ -72,7 +72,7 @@ const onStartup = async () => {
         });
     });
 
-    //await resetCommercials();
+    await resetCommercials();
 };
 
 onStartup();
