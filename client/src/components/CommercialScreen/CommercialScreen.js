@@ -27,7 +27,6 @@ function CommercialScreen() {
     let query = useQuery();
     let navigate = useNavigate();
 
-    useEffect(() => {
         const fetchCommercials = async () => {
             setLoading(true);
             const res = await getCommercials(screen);
@@ -40,16 +39,23 @@ function CommercialScreen() {
             setLoading(false);
         };
 
+    useEffect(() => {
+
+        socket.on('updateCommerical', () => {
+            fetchCommercials();
+        });
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+
         if (!screen) return;
 
         fetchCommercials();
 
-        socket.on('updateCommerical', () => {
-            fetchCommercials();
-            console.log("commericals updated");
-        });
-
-    }, [screen, alert]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [screen]);
 
     useEffect(() => {
         const testTimeSet = (timeSet) => {
@@ -67,30 +73,32 @@ function CommercialScreen() {
         };
 
         const getCommercialToShowByTimeSet = () => {
-            return commercials.find((commercial) =>
-                commercial.timeSets.some((set) => testTimeSet(set)),
+            return commercials.find((comm) =>
+                comm.timeSets.some((set) => testTimeSet(set)),
             );
         };
 
-        const getCommercialToShow = () => {
+        const getCommercialToShow = (commer) => {
             let nextCommercialIndex = 0;
             const currentCommercialIndex = commercials.findIndex(
-                (comm) => comm.name === commercial?.name,
+                (comm) => comm.name === commer?.name,
             );
 
             if (commercials[currentCommercialIndex]) {
                 nextCommercialIndex =
-                    (currentCommercialIndex % commercials.length) + 1;
+                    (currentCommercialIndex + 1) % commercials.length;
             }
 
             return commercials[nextCommercialIndex];
         };
 
-        const getNextCommercial = () => {
+        const getNextCommercial = (comm) => {
+            console.log(commercial?.name);
             console.log('Try to get next commercial');
             const currCommercial = ignoreTimeSets
-                ? getCommercialToShow()
-                : getCommercialToShowByTimeSet();
+            ? getCommercialToShow(comm)
+            : getCommercialToShowByTimeSet();
+            console.log('Got commercial ' , currCommercial?.name);
 
             setTemplate(
                 currCommercial?.template || TEMPLATE_TYPES.DefaultTemplate,
@@ -99,13 +107,13 @@ function CommercialScreen() {
 
             clearTimeout(timeoutId.current);
             timeoutId.current = setTimeout(
-                () => getNextCommercial(),
+                () => getNextCommercial(currCommercial),
                 (currCommercial?.durationInSeconds ||
                     DEFAULT_TIME_TO_WAIT_FOR_NEXT_COMMERCIAL_IN_SECONDS) * 1000,
             );
         };
 
-        if (commercials.length) getNextCommercial();
+        if (commercials.length) getNextCommercial(commercial);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [commercials, ignoreTimeSets]);
@@ -114,6 +122,7 @@ function CommercialScreen() {
         const screenId = query.get('screen');
 
         setScreen(screenId);
+        socket.emit('screen', screenId);
 
         const disableTimeSet = query.get('loop');
 
@@ -133,7 +142,6 @@ function CommercialScreen() {
                             className="select-screen"
                             label="Screen Id"
                             onChange={(e) => {
-                                socket.emit('screen', e.target.value);
                                 navigate(`/?screen=${e.target.value}`);
                             }}
                         >
