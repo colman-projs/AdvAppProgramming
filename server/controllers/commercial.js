@@ -1,61 +1,64 @@
-const Commercials = require("../models/commercial");
+const Commercial = require('../models/commercial');
+const errorHandler = require('../globals').errorHandler;
+
+const defaultCommercials = require('../commercials');
 
 const upsertCommercial = (req, res) => {
-  const commercial = new Commercials({
-    name: req.body.name,
-  });
+    const commercial = new Commercial(req.body);
 
-  commercial
-    .save()
-    .then(() => {
-      res.redirect("/commercial");
-      io.sockets.emit('updateClients');
-    })
-    .catch((err) => console.error(err));
+    commercial
+        .save()
+        .then(() => {
+            res.end();
+        })
+        .catch(errorHandler(res));
 };
 
 const getCommercials = (_req, res) => {
-  Commercials.find()
-    .then((commercials) => {
-      // console.log('GetAll: ', commercials);
-      res.status(200).json(commercials);
-    })
-    .catch((err) => console.error(err));
+    Commercial.find()
+        .then(commercials => {
+            res.json(commercials);
+        })
+        .catch(errorHandler(res));
 };
 
 const getCommercialsByScreenId = (req, res) => {
-  const { screenId } = req.params;
+    const { screenId } = req.params;
 
-  Commercials.find({ screenId })
-    .then((commercials) => {
-      //  console.log('commercials by screen: ', commercials);
-      res.json(commercials);
-    })
-    .catch((err) => console.error(err));
+    Commercial.find({ screenId })
+        .then(commercials => {
+            res.json(commercials);
+        })
+        .catch(errorHandler(res));
 };
 
 const getCommercialById = (req, res) => {
-  Commercials.findById(req.params.commercialId)
-    .then((commercial) => {
-      res.json(commercial);
-    })
-    .catch((err) => console.error(err));
+    Commercial.findById(req.params.commercialId)
+        .then(commercial => {
+            res.json(commercial);
+        })
+        .catch(errorHandler(res));
 };
 
 const deleteCommercial = (req, res) => {
-  res
-    .deleteOne({ _id: req.params.commercialId })
-    .then((deleteRes) => {
-      res.json(deleteRes);
-      io.sockets.emit('updateClients');
-    })
-    .catch((err) => console.error(err));
+    Commercial.deleteOne({ _id: req.params.commercialId })
+        .then(deleteRes => {
+            res.json(deleteRes);
+        })
+        .catch(errorHandler(res));
+};
+
+const resetCommercials = async () => {
+    console.log('Reseting DB...');
+    await Commercial.deleteMany();
+    await Commercial.create(defaultCommercials);
 };
 
 module.exports = {
-  getCommercials,
-  getCommercialsByScreenId,
-  upsertCommercial,
-  getCommercialById,
-  deleteCommercial,
+    getCommercials,
+    getCommercialsByScreenId,
+    upsertCommercial,
+    getCommercialById,
+    deleteCommercial,
+    resetCommercials,
 };

@@ -6,6 +6,7 @@ const clientDb = require("./controllers/client");
 const commercialDb = require("./controllers/commercial");
 const connectDB = require("./db/connect");
 const cors = require("./middleware/cors");
+const { resetCommercials } = require('./controllers/commercial');
 
 //Set the DATABASE URI
 const URI =
@@ -76,6 +77,12 @@ const onStartup = async () => {
       );
     });
   });
+
+    await resetCommercials();
+
+    app.listen(port, () =>
+        console.log(`Server is listening on port ${port}...`),
+    );
 };
 
 onStartup();
