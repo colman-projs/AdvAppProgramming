@@ -4,7 +4,6 @@ const errorHandler = require('../globals').errorHandler;
 const defaultCommercials = require('../commercials');
 const { getIo } = require('../globals');
 
-const io = getIo();
 
 const upsertCommercial = (req, res) => {
     Commercial.findOneAndUpdate({ _id: req.body._id }, req.body, {
@@ -12,6 +11,7 @@ const upsertCommercial = (req, res) => {
         upsert: true,
     })
         .then(() => {
+            const io = getIo();
             io.sockets.emit('updateCommerical');
             res.send(true);
         })
@@ -47,6 +47,7 @@ const getCommercialById = (req, res) => {
 const deleteCommercial = (req, res) => {
     Commercial.deleteOne({ _id: req.params.commercialId })
         .then(deleteRes => {
+            const io = getIo();
             io.sockets.emit('updateCommerical');
             res.json(deleteRes);
         })

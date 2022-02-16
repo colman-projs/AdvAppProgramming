@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
 import { MenuItem, TextField } from '@mui/material';
@@ -23,6 +23,7 @@ function CommercialScreen() {
     const [loading, setLoading] = useState(false);
     const [screen, setScreen] = useState(null);
     const alert = useAlert();
+    const timeoutId = useRef();
     let query = useQuery();
     let navigate = useNavigate();
 
@@ -43,7 +44,10 @@ function CommercialScreen() {
 
         fetchCommercials();
 
-        socket.on('updateCommerical', fetchCommercials);
+        socket.on('updateCommerical', () => {
+            fetchCommercials();
+            console.log("commericals updated");
+        });
 
     }, [screen, alert]);
 
@@ -93,7 +97,8 @@ function CommercialScreen() {
             );
             setCommercial(currCommercial);
 
-            setTimeout(
+            clearTimeout(timeoutId.current);
+            timeoutId.current = setTimeout(
                 () => getNextCommercial(),
                 (currCommercial?.durationInSeconds ||
                     DEFAULT_TIME_TO_WAIT_FOR_NEXT_COMMERCIAL_IN_SECONDS) * 1000,
