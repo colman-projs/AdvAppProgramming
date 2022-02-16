@@ -4,18 +4,31 @@ const errorHandler = require('../globals').errorHandler;
 const defaultCommercials = require('../commercials');
 const { getIo } = require('../globals');
 
+const upsertCommercial = async (req, res) => {
+    if (req.body._id) {
+        const filter = { _id: req.body._id };
 
-const upsertCommercial = (req, res) => {
-    Commercial.findOneAndUpdate({ _id: req.body._id }, req.body, {
-        new: true,
-        upsert: true,
-    })
-        .then(() => {
-            const io = getIo();
-            io.sockets.emit('updateCommerical');
-            res.send(true);
+        Commercial.findOneAndUpdate(filter, req.body, {
+            new: true,
+            upsert: true,
         })
-        .catch(errorHandler(res));
+            .then(() => {
+                const io = getIo();
+                io.sockets.emit('updateCommerical');
+                res.send(true);
+            })
+            .catch(errorHandler(res));
+    } else {
+        const comm = new Commercial(req.body);
+
+        comm.save()
+            .then(() => {
+                const io = getIo();
+                io.sockets.emit('updateCommerical');
+                res.send(true);
+            })
+            .catch(errorHandler(res));
+    }
 };
 
 const getCommercials = (_req, res) => {
