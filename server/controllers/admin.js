@@ -45,29 +45,30 @@ const authenticate = (req, res) => {
 };
 
 const updateDetails = async (req, res) => {
-    const updatedAdmin = new admins({
-        username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, 8),
-    });
-
     const admin = await admins.findOne({ _id: req.body.id });
 
     if (!admin) res.status(500).send({ message: "Couldn't find user" });
 
-    admins.findByIdAndUpdate(
-        admin._id,
-        {
-            username: updatedAdmin.username,
-            password: updatedAdmin.password,
-        },
-        (err, _result) => {
-            if (err) {
-                res.status(500).send({ message: err });
-            } else {
-                res.status(200).send(true);
-            }
-        },
-    );
+    let updateField = null;
+
+    if (req.body.username) updateField = { username: req.body.username };
+    else if (req.body.password)
+        updateField = {
+            password: req.body.password
+                ? bcrypt.hashSync(req.body.password, 8)
+                : '',
+        };
+    else {
+        res.status(404).send({ message: 'No password/username entered' });
+    }
+
+    admins.findByIdAndUpdate(admin._id, updateField, (err, _result) => {
+        if (err) {
+            res.status(500).send({ message: err });
+        } else {
+            res.status(200).send(true);
+        }
+    });
 };
 
 module.exports = {

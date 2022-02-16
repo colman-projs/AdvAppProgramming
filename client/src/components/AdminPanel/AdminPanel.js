@@ -6,6 +6,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CommercialForm from '../CommercialForm/CommercialForm';
+import ClientsList from '../ClientsList/ClientsList';
 
 import './AdminPanel.scss';
 
@@ -69,8 +70,7 @@ export default function AdminPanel() {
                     <CommercialForm isEdit />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    {/* // TODO: Create a component that will show data about connected/disconnected clients */}
-                    Clients Data
+                    <ClientsList />
                 </TabPanel>
             </div>
         </div>

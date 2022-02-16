@@ -9,6 +9,7 @@ const upsertCommercial = (req, res) => {
         upsert: true,
     })
         .then(() => {
+            io.sockets.emit('updateCommerical');
             res.send(true);
         })
         .catch(errorHandler(res));
@@ -43,6 +44,7 @@ const getCommercialById = (req, res) => {
 const deleteCommercial = (req, res) => {
     Commercial.deleteOne({ _id: req.params.commercialId })
         .then(deleteRes => {
+            io.sockets.emit('updateCommerical');
             res.json(deleteRes);
         })
         .catch(errorHandler(res));
