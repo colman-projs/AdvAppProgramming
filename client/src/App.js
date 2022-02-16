@@ -19,8 +19,6 @@ function App() {
     useEffect(() => {
         const admin = getCurrentAdmin();
 
-        socket.on("connect", function () {
-        });
         socket.on("id", function (id) {
             console.log(id);
             // TODO: something with ID
