@@ -1,55 +1,57 @@
-const commercials = require('../models/commercial');
+const Commercial = require('../models/commercial');
+const errorHandler = require('../globals').errorHandler;
+
+const defaultCommercials = require('../commercials');
 
 const upsertCommercial = (req, res) => {
-    const commercials = new Commercial({
-        name: req.body.name,
-    });
+    const commercial = new Commercial(req.body);
 
-    commercials
+    commercial
         .save()
         .then(() => {
-            res.redirect('/commercial');
+            res.end();
         })
-        .catch((err) => console.error(err));
+        .catch(errorHandler(res));
 };
 
 const getCommercials = (_req, res) => {
-    commercials
-        .find()
-        .then((commercials) => {
-            console.log('GetAll: ', commercials);
-            res.status(200).json(commercials);
+    Commercial.find()
+        .then(commercials => {
+            res.json(commercials);
         })
-        .catch((err) => console.error(err));
+        .catch(errorHandler(res));
 };
 
 const getCommercialsByScreenId = (req, res) => {
     const { screenId } = req.params;
 
-    commercials
-        .find({ screenId })
-        .then((commercials) => {
-            console.log('commercials by screen: ', commercials);
+    Commercial.find({ screenId })
+        .then(commercials => {
             res.json(commercials);
         })
-        .catch((err) => console.error(err));
+        .catch(errorHandler(res));
 };
 
 const getCommercialById = (req, res) => {
-    commercials
-        .findById(req.params.commercialId)
-        .then((commercial) => {
+    Commercial.findById(req.params.commercialId)
+        .then(commercial => {
             res.json(commercial);
         })
-        .catch((err) => console.error(err));
+        .catch(errorHandler(res));
 };
 
 const deleteCommercial = (req, res) => {
-    res.deleteOne({ _id: req.params.commercialId })
-        .then((deleteRes) => {
+    Commercial.deleteOne({ _id: req.params.commercialId })
+        .then(deleteRes => {
             res.json(deleteRes);
         })
-        .catch((err) => console.error(err));
+        .catch(errorHandler(res));
+};
+
+const resetCommercials = async () => {
+    console.log('Reseting DB...');
+    await Commercial.deleteMany();
+    await Commercial.create(defaultCommercials);
 };
 
 module.exports = {
@@ -58,4 +60,5 @@ module.exports = {
     upsertCommercial,
     getCommercialById,
     deleteCommercial,
+    resetCommercials,
 };

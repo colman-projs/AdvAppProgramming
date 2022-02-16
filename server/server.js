@@ -4,6 +4,7 @@ const commercial = require('./routes/commercial');
 const admin = require('./routes/admin');
 const connectDB = require('./db/connect');
 const cors = require('./middleware/cors');
+const { resetCommercials } = require('./controllers/commercial');
 
 //Set the DATABASE URI
 const URI =
@@ -25,6 +26,8 @@ app.use('/admins', admin);
 
 const onStartup = async () => {
     connectDB(URI);
+
+    await resetCommercials();
 
     app.listen(port, () =>
         console.log(`Server is listening on port ${port}...`),
