@@ -7,13 +7,13 @@ function TemplateA({ commercial }) {
             <h1 id="msg0">{commercial.messages[0]}</h1>
             <h2 id="msg1">{commercial.messages[1]}</h2>
             <p id="msg2">{commercial.messages[2]}</p>
-            <p id="msg3"></p>
-            <p id="msg4"></p>
-            <p id="msg5"></p>
-            <p id="msg6"></p>
-            <p id="msg7"></p>
-            <p id="msg8"></p>
-            <p id="msg9"></p>
+            <p id="msg3">{commercial.messages[3]}</p>
+            <p id="msg4">{commercial.messages[4]}</p>
+            <p id="msg5">{commercial.messages[5]}</p>
+            <p id="msg6">{commercial.messages[6]}</p>
+            <p id="msg7">{commercial.messages[7]}</p>
+            <p id="msg8">{commercial.messages[8]}</p>
+            <p id="msg9">{commercial.messages[9]}</p>
             {commercial.images[0] && (
                 <img id="img0" src={commercial.images[0]} alt=" " />
             )}

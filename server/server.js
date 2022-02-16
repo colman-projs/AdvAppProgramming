@@ -43,7 +43,7 @@ app.use('/admins', admin);
 const onStartup = async () => {
     connectDB(URI);
 
-    //clientDb.deleteClients();
+    clientDb.deleteClients();
 
     server.listen(port, () =>
         console.log(`Server is listening on port ${port}...`),
@@ -72,7 +72,7 @@ const onStartup = async () => {
         });
     });
 
-    await resetCommercials();
+    //await resetCommercials();
 };
 
 onStartup();
