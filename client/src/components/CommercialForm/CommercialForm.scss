@@ -6,6 +6,7 @@
     min-width: 20rem;
     max-height: calc(100% - 9rem);
     overflow-y: auto;
+    overflow-x: hidden;
     padding-top: 1rem;
 
     .actions {
