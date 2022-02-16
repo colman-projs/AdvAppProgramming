@@ -29,8 +29,14 @@ const Commercial = new Schema({
     timeSets: {
         type: [
             {
-                startDate: Date,
-                endDate: Date,
+                startDate: {
+                    type: Date,
+                    required: true,
+                },
+                endDate: {
+                    type: Date,
+                    required: true,
+                },
                 daysInWeek: [Number],
             },
         ],
