@@ -8,8 +8,11 @@ const commercials = [
             'At only 12.99$ a month!',
             'Join us today',
         ],
-        images: ['2', '4'],
-        template: 'templateA',
+        images: [
+            'https://www.incimages.com/uploaded_files/image/1920x1080/getty_495142964_198701.jpg',
+            'https://www.statecollege.com/wp-content/uploads/2022/01/success-stock-scaled.jpeg',
+        ],
+        template: 1,
         durationInSeconds: 5,
         screenId: [1, 2],
         timeSets: [
@@ -43,8 +46,10 @@ const commercials = [
             "Tony's Pizza, find us at 14th Johnson ave, Florida",
             'Buy it today!',
         ],
-        images: ['5'],
-        template: 'templateB',
+        images: [
+            'https://www.recipetineats.com/wp-content/uploads/2020/05/Pepperoni-Pizza_5-SQjpg.jpg',
+        ],
+        template: 2,
         durationInSeconds: 5,
         screenId: [1, 3],
         timeSets: [
@@ -61,7 +66,7 @@ const commercials = [
         name: 'Advertisement',
         messages: [],
         images: [],
-        template: 'templateC',
+        template: 3,
         durationInSeconds: 5,
         screenId: [2, 3],
         timeSets: [
@@ -81,7 +86,7 @@ const commercials = [
             'The best prices hands down.',
         ],
         images: [],
-        template: 'templateA',
+        template: 1,
         durationInSeconds: 5,
         screenId: [1],
         timeSets: [
@@ -107,8 +112,11 @@ const commercials = [
             "Vanguard Funds, it's all in the name.",
             'Find out today at vanguardFunds.co.kz',
         ],
-        images: ['1', '3'],
-        template: 'templateB',
+        images: [
+            'https://www.investopedia.com/thmb/513SZ-nXDzK3nLYG6hOlQr_mSL4=/2121x1193/smart/filters:no_upscale()/Investingjourneypic-12651a1840124b9d84467deb065e7b26-bfb2d9b73a524490acbed28a3c4ffecf.jpg',
+            'https://imageio.forbes.com/specials-images/imageserve/5d6ba3db68cb0a0008c1089e/Financial-and-Technical-Data-Analysis-Graph-Showing-Stock-Market-Trends/960x0.jpg?fit=bounds&format=jpg&width=960',
+        ],
+        template: 2,
         durationInSeconds: 5,
         screenId: [3],
         timeSets: [
