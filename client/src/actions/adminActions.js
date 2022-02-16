@@ -46,3 +46,8 @@ export const logout = () => {
 export const getCurrentAdmin = () => {
     return JSON.parse(localStorage.getItem('admin'));
 };
+
+export const getClients = async () => {
+    const { data } = await admin.get('/clients');
+    return data
+}

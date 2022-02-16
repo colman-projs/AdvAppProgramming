@@ -11,6 +11,7 @@ import {
     DEFAULT_TIME_TO_WAIT_FOR_NEXT_COMMERCIAL_IN_SECONDS,
     SCREENS,
 } from '../../globals';
+import { socket } from '../../socket';
 
 import './CommercialScreen.scss';
 
@@ -41,6 +42,7 @@ function CommercialScreen() {
         if (!screen) return;
 
         fetchCommercials();
+
     }, [screen, alert]);
 
     useEffect(() => {
@@ -106,7 +108,7 @@ function CommercialScreen() {
 
         setScreen(screenId);
 
-        const disableTimeSet = query.get('disableTimeSet');
+        const disableTimeSet = query.get('loop');
 
         setIgnoreTimeSets(disableTimeSet);
     }, [query]);
@@ -123,9 +125,10 @@ function CommercialScreen() {
                             select
                             className="select-screen"
                             label="Screen Id"
-                            onChange={(e) =>
-                                navigate(`/?screen=${e.target.value}`)
-                            }
+                            onChange={(e) => {
+                                socket.emit('screen', e.target.value);
+                                navigate(`/?screen=${e.target.value}`);
+                            }}
                         >
                             {SCREENS.map((screenId) => (
                                 <MenuItem key={screenId} value={screenId}>
