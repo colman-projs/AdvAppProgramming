@@ -2,11 +2,8 @@ import {
     Button,
     Checkbox,
     InputAdornment,
-    InputLabel,
     ListItemText,
     MenuItem,
-    OutlinedInput,
-    Select,
     TextField,
 } from '@mui/material';
 import { useAlert } from 'react-alert';
@@ -24,17 +21,20 @@ import './CommercialForm.scss';
 import { SCREENS } from '../../globals';
 import { TEMPLATE_TYPES } from '../Templates';
 
+const INITIAL_STATE = {
+    name: '',
+    messages: '',
+    images: '',
+    template: null,
+    durationInSeconds: 0,
+    screenId: [],
+    timeSets: [],
+};
+
 function CommercialForm({ isEdit }) {
     const [commercials, setCommercials] = useState([]);
-    const [commercial, setCommercial] = useState({
-        name: '',
-        messages: [],
-        images: [],
-        template: null,
-        durationInSeconds: 0,
-        screenId: [],
-        timeSets: [],
-    });
+    const [commercial, setCommercial] = useState(null);
+    const [selected, setSelected] = useState('');
 
     const [loading, setLoading] = useState(false);
 
@@ -53,7 +53,11 @@ function CommercialForm({ isEdit }) {
     }, [alert]);
 
     useEffect(() => {
-        if (isEdit) fetchCommercials();
+        if (isEdit) {
+            fetchCommercials();
+        } else {
+            setCommercial(INITIAL_STATE);
+        }
     }, [isEdit, fetchCommercials]);
 
     const handleChangeScreen = event => {
@@ -73,11 +77,24 @@ function CommercialForm({ isEdit }) {
         }));
     };
 
+    const handleChangeTimesets = t => {
+        setCommercial(prev => ({
+            ...prev,
+            timeSets: t,
+        }));
+    };
+
     const handleSubmit = async e => {
         e.preventDefault();
         setLoading(true);
 
-        const res = await upsertCommercial(commercial);
+        const comm = {
+            ...commercial,
+            messages: commercial.messages.split('\n'),
+            images: commercial.images.split('\n'),
+        };
+
+        const res = await upsertCommercial(comm);
 
         if (res) {
             alert.success(
@@ -85,8 +102,13 @@ function CommercialForm({ isEdit }) {
                     isEdit ? 'Updated' : 'Added'
                 } successfuly`,
             );
+
+            setCommercial(INITIAL_STATE);
+
             await fetchCommercials();
-        } else alert.error('Error while updating commercials');
+        } else {
+            alert.error('Error while updating commercials');
+        }
 
         setLoading(false);
     };
@@ -106,27 +128,17 @@ function CommercialForm({ isEdit }) {
     };
 
     // TODO: Add all commercial form fields
-    const fields = (
-        <>
+    const fields = commercial && (
+        <div className="edit-fields">
             <TextField
                 label="Name"
                 value={commercial.name}
                 onChange={handleChangeField('name')}
-            />
-            <TextField
-                label="Messages"
-                multiline
-                value={commercial.messages}
-                onChange={handleChangeField('messages')}
-            />
-            <TextField
-                label="Images"
-                multiline
-                value={commercial.images}
-                onChange={handleChangeField('images')}
+                style={{ gridColumn: 'span 2' }}
             />
 
-            <Select
+            <TextField
+                select
                 label="Template"
                 value={commercial.template}
                 onChange={handleChangeField('template')}
@@ -134,7 +146,7 @@ function CommercialForm({ isEdit }) {
                 {Object.keys(TEMPLATE_TYPES).map(t => (
                     <MenuItem value={TEMPLATE_TYPES[t]}>{t}</MenuItem>
                 ))}
-            </Select>
+            </TextField>
 
             <TextField
                 label="Duration"
@@ -145,15 +157,31 @@ function CommercialForm({ isEdit }) {
                     ),
                 }}
             />
+            <TextField
+                label="Messages"
+                multiline
+                maxRows={10}
+                value={commercial.messages}
+                onChange={handleChangeField('messages')}
+                style={{ gridColumn: 'span 2' }}
+            />
+            <TextField
+                label="Images"
+                multiline
+                value={commercial.images}
+                onChange={handleChangeField('images')}
+                style={{ gridColumn: 'span 2' }}
+            />
 
-            <InputLabel htmlFor="select-screen-label">Screens</InputLabel>
-            <Select
-                labelId="select-screen-label"
-                multiple
+            <TextField
+                select
+                label="Screens"
                 value={commercial.screenId}
                 onChange={handleChangeScreen}
-                input={<OutlinedInput label="screens" />}
-                renderValue={selected => selected.join(', ')}
+                SelectProps={{
+                    multiple: true,
+                    renderValue: selected => selected.join(', '),
+                }}
             >
                 {SCREENS.map(s => (
                     <MenuItem key={s} value={s}>
@@ -163,10 +191,26 @@ function CommercialForm({ isEdit }) {
                         <ListItemText primary={s} />
                     </MenuItem>
                 ))}
-            </Select>
-            <TimesetSelector timesets={commercial.timeSets} onChange={null} />
-        </>
+            </TextField>
+            <TimesetSelector
+                timesets={commercial.timeSets}
+                onChange={handleChangeTimesets}
+            />
+        </div>
     );
+
+    const changeCommercial = e => {
+        let comm = commercials.find(comm => comm._id === e.target.value);
+        console.log(comm);
+        comm = {
+            ...comm,
+            messages: comm.messages.join('\n'),
+            images: comm.images.join('\n'),
+        };
+
+        setCommercial(comm);
+        setSelected(comm._id);
+    };
 
     return (
         <form onSubmit={handleSubmit} className="commercial-form center">
@@ -179,11 +223,15 @@ function CommercialForm({ isEdit }) {
                             select
                             className="select-screen"
                             label="Commercial"
-                            onChange={e => setCommercial(e.target.value)}
-                            value={commercial}
+                            onChange={changeCommercial}
+                            value={selected}
+                            SelectProps={{
+                                renderValue: comm =>
+                                    commercials.find(c => c._id === comm)?.name,
+                            }}
                         >
                             {commercials.map(comm => (
-                                <MenuItem key={comm._id} value={comm}>
+                                <MenuItem key={comm._id} value={comm._id}>
                                     {comm.name}
                                 </MenuItem>
                             ))}
@@ -193,7 +241,7 @@ function CommercialForm({ isEdit }) {
                     <div className="actions">
                         <Button
                             variant="contained"
-                            onClick={() => setCommercial(null)}
+                            onClick={() => setCommercial(INITIAL_STATE)}
                         >
                             Clear
                         </Button>

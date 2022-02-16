@@ -9,7 +9,7 @@ const upsertCommercial = (req, res) => {
     commercial
         .save()
         .then(() => {
-            res.end();
+            res.send(true);
         })
         .catch(errorHandler(res));
 };
